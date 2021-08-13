@@ -165,7 +165,7 @@ To run inference, you can specify the interested novel object categories by `--n
 ## Known/Novel Split - 80 MS-COCO Objects
 To simulate the zero-shot cases, we split the 80 object categories into a known and novel set based on their occurrence frequency in HICO-DET and VCOCO datasets. The split can be found at [datasets/known_novel_split.py](./datasets/known_novel_split.py).
 
-## Citing
+<!-- ## Citing
 If you use this code in your research or wish to refer to the baseline results published, please use the following BibTeX.
 ```
 @InProceedings{Wang_2020_CVPR,
@@ -175,7 +175,7 @@ booktitle = {The IEEE Conference on Computer Vision and Pattern Recognition (CVP
 month = {June},
 year = {2020}
 }
-```
+``` -->
 
 ## License
 
