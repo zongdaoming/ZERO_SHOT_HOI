@@ -143,7 +143,6 @@ def register_vcoco_instances(name, metadata, json_file, image_root, evaluator_ty
         **metadata
     )
 
-
 def register_all_hico(root):
     for dataset_name, splits_per_dataset in _PREDEFINED_SPLITS_HICO.items():
         for key, (image_root, json_file) in splits_per_dataset.items():
@@ -155,7 +154,6 @@ def register_all_hico(root):
                 evaluator_type=dataset_name
             )
 
-
 def register_all_coco(root):
     for dataset_name, splits_per_dataset in _PREDEFINED_SPLITS_COCO.items():
         for key, (image_root, json_file) in splits_per_dataset.items():
@@ -165,7 +163,6 @@ def register_all_coco(root):
                 os.path.join(root, json_file) if "://" not in json_file else json_file,
                 os.path.join(root, image_root),
             )
-
 
 def register_all_vcoco(root):
     for dataset_name, splits_per_dataset in _PREDEFINED_SPLITS_VCOCO.items():
@@ -178,12 +175,12 @@ def register_all_vcoco(root):
                 evaluator_type=dataset_name
             )
 
-
 # Register them all under _root (path to datasets)
-_root = os.getenv("DETECTRON2_DATASETS", "./datasets")
+# _root = os.getenv("DETECTRON2_DATASETS", "./datasets")
 # /mnt/lustre/zongdaoming/models/FireAssociation/data/hico_det/hico_20160224_det
 # coco: /mnt/lustre/zongdaoming/models/v-coco/coco
 # vcoco: /mnt/lustre/zongdaoming/models/v-coco
-register_all_hico(_root)
-register_all_vcoco(_root)
-register_all_coco(_root)
+# /mnt/lustre/zongdaoming/models/zero_shot_hoi/zero_shot_hoi/datasets
+register_all_hico("/mnt/lustre/zongdaoming/models/zero_shot_hoi/zero_shot_hoi/datasets")
+register_all_vcoco("/mnt/lustre/zongdaoming/models/zero_shot_hoi/zero_shot_hoi/datasets")
+# register_all_coco(_roo)

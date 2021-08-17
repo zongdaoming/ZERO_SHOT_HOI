@@ -17,7 +17,7 @@ from .horpn_outputs import HORPNOutputs, find_top_horpn_proposals
 
 HORPN_HEAD_REGISTRY = Registry("RPN_HEAD")
 HORPN_HEAD_REGISTRY.__doc__ = """
-Registry for HORPN heads, which take feature maps and perform
+Registry for HORPN heads, which take feature maps and perform 
 object interactiveness classification and bounding box regression for anchors.
 
 The registered object will be called with `obj(cfg, input_shape)`.

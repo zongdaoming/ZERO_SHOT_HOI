@@ -33,25 +33,23 @@ Therefore, we recommend you to use detectron2 as an library and take
 this file as an example of how to use the library.
 You may want to write your own script with your datasets and other customizations.
 """
-
-import logging
 import os
-from collections import OrderedDict
 import torch
+import logging
+from collections import OrderedDict
 from torch.nn.parallel import DistributedDataParallel
 
 import detectron2.utils.comm as comm
 from detectron2.config import get_cfg
 from detectron2.data import MetadataCatalog
-from detectron2.engine import DefaultTrainer, default_argument_parser, default_setup, hooks, launch
 from detectron2.evaluation import verify_results
 from detectron2.modeling import GeneralizedRCNNWithTTA
+from detectron2.engine import DefaultTrainer, default_argument_parser, default_setup, hooks, launch
 
-from lib.config import add_hoircnn_default_config
-from lib.data import build_hoi_train_loader, build_hoi_test_loader
-from lib.evaluation import VCOCOEvaluator, HICOEvaluator
 from lib.checkpoint import DetectionCheckpointer
-
+from lib.config import add_hoircnn_default_config
+from lib.evaluation import VCOCOEvaluator, HICOEvaluator
+from lib.data import build_hoi_train_loader, build_hoi_test_loader
 
 class Trainer(DefaultTrainer):
     """
@@ -145,7 +143,6 @@ def setup(args):
     default_setup(cfg, args)
     return cfg
 
-
 def main(args):
     cfg = setup(args)
 
@@ -174,7 +171,6 @@ def main(args):
             [hooks.EvalHook(0, lambda: trainer.test_with_TTA(cfg, trainer.model))]
         )
     return trainer.train()
-
 
 if __name__ == "__main__":
     args = default_argument_parser().parse_args()

@@ -1,9 +1,12 @@
 _BASE_: "../Base-HOIRCNN-FPN.yaml"
 MODEL:
-  WEIGHTS: "./output/model_final_280758.pkl"
+  # WEIGHTS: "./output/model_final_280758.pkl"
+  # WEIGHTS:  
+  WEIGHTS: "./output/hico_det_pretrained_agnostic.pkl"  
   HOI_ON: True
   ROI_BOX_HEAD:
     CLS_AGNOSTIC_BBOX_REG: True
+
 ZERO_SHOT:
   ZERO_SHOT_ON: True
   PRECOMPUTED_SEMANTIC_EMBEDDINGS: "./datasets/precomputed_semantic_embeddings.pkl"
