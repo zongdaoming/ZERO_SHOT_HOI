@@ -1,6 +1,6 @@
 _BASE_: "../Base-HOIRCNN-FPN.yaml"
 MODEL:
-  WEIGHTS: "./output/model_final_280758.pkl"
+  WEIGHTS: "./output/hico_det_pretrained.pkl"
   HOI_ON: True
   HOI_BOX_HEAD:
     ACTION_CLS_WEIGHTS: [10., 128.]
