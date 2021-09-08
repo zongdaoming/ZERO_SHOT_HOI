@@ -1,0 +1,138 @@
+model_name: hotr_hoi
+dataset_file: vcoco
+hoi: True # set matcher
+port: 19993
+
+# Data augmentations
+flip: &flip
+ type: flip
+ kwargs:
+   flip_p: 0.5
+
+resize: &resize
+ type: resize
+ kwargs:
+   scales: [800,1100]
+   max_size: 1333
+
+to_tensor: &to_tensor
+  type: to_tensor
+
+normalize: &normalize
+ type: normalize
+ kwargs:
+   mean: [0.485, 0.456, 0.406] # ImageNet pretrained statics
+   std: [0.229, 0.224, 0.225]
+
+transformer: [*flip, *resize, *to_tensor, *normalize]
+
+#  General
+lr: 0.0002
+lr_backbone_names: ["backbone.0"]
+lr_backbone: 0.00001
+lr_linear_proj_names: ['reference_points', 'sampling_offsets']
+lr_linear_proj_mult: 0.1
+batch_size: 2
+weight_decay: 0.0001
+epochs: 100
+lr_drop: 80
+lr_drop_epochs:
+test_freq: 1
+save_freq: 1
+clip_max_norm: 0.1
+sgd: False
+
+# Variants of Deformable DETR
+# with_box_refine: False
+with_box_refine: True
+two_stage: False
+
+# Model parameters
+frozen_weights: True # Path to the pretrained model. If set, only the mask head will be trained
+pretrained_resnet50: /mnt/lustre/zongdaoming/models/FireAssociation/data/detr_coco/detr-r50-e632da11.pth
+# pretrained_resnet50: https://dl.fbaipublicfiles.com/detr/detr-r50-e632da11.pth
+# frozen_weights https://dl.fbaipublicfiles.com/detr/detr-r50-e632da11.pth
+pretrained_resnet101: /mnt/lustre/zongdaoming/models/FireAssociation/data/detr_coco/detr-r101-2c7b67e5.pth
+
+# Backbone
+backbone: resnet50
+dilation: False
+position_embedding: sine # sine or learned
+position_embedding_scale:  
+num_feature_levels: 4
+# Transformer
+enc_layers: 6
+dec_layers: 6
+dim_feedforward: 2048
+hidden_dim: 256
+dropout: 0.1
+nheads: 8
+num_queries: 100
+pre_norm: False
+
+# Segmentation
+masks: False
+
+# Loss
+no_aux_loss: True
+aux_loss: True
+
+# Matcher.
+set_cost_class: 1
+set_cost_bbox: 5
+set_cost_giou: 2
+set_cost_obj_class: 1
+set_cost_verb_class: 1
+
+# Loss coefficients
+mask_loss_coef: 1
+dice_loss_coef: 1
+bbox_loss_coef: 5
+giou_loss_coef: 2
+obj_loss_coef: 1
+verb_loss_coef: 1
+verb_loss_type: bce
+focal_alpha: 0.25
+eos_coef: 0.1
+
+
+# HOI Detection
+HOIDet: True
+share_enc: True
+pretrained_dec: True
+hoi_enc_layers: 1
+hoi_dec_layers: 1
+hoi_nheads: 8
+hoi_dim_feedforward: 2048
+num_hoi_queries: 16
+hoi_aux_loss: True
+
+# HOTR Matcher
+set_cost_idx: 20
+set_cost_act: 1
+set_cost_tgt: 1
+
+# HOTR Loss coefficients
+temperature: 0.2
+hoi_idx_loss_coef: 1
+hoi_act_loss_coef: 10
+hoi_tgt_loss_coef: 1
+hoi_eos_coef: 0.1
+data_path: /mnt/lustre/zongdaoming/models/v-coco
+object_threshold: 0 # Threshold for object confidence
+
+# mode
+eval: True  # Only evaluate results if the flag is provided
+resume: /mnt/lustre/zongdaoming/models/HOTR/data/vcoco_q16.pth
+validate: True # Validate after every epoch
+log: True
+custom_path: 
+
+# Distributed training parameters.
+device: cuda
+seed: 2022
+start_epoch: 0
+num_workers: 0 
+rank: 0
+dist_url: 'env://'
+cache_mode: False
